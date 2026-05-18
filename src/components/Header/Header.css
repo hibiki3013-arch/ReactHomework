@@ -1,0 +1,14 @@
+.site-header{
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 24px;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.header-link{
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}   
