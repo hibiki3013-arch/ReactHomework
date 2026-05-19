@@ -1,4 +1,4 @@
-.post-card{
+.PostCard{
     border: 1px solid #808080;
     padding: 30px 100px 30px 30px;
     background-color: #ffffff;
@@ -10,22 +10,22 @@
     gap: 10px;
 }
 
-.post-card-between{
+.PostCardBetween{
     display: flex;
     justify-content: space-between;
 }
 
-.post-card-data{
+.PostCardData{
     font-size: 12px;
     color: #808080;
 }
 
-.post-card-category{
+.PostCardCategory{
     display: flex;
     gap: 5px;
 }
 
-.category-detail{
+.CategoryDetail{
     font-size: 12px;
     color: #0066cc;
     border: 1px solid #0066cc;
@@ -33,11 +33,11 @@
     padding: 5px;
 }
 
-.post-card-title{
+.PostCardTitle{
     font-size: 24px;
 }
 
-.post-card-article{
+.PostCardArticle{
     font-size: 16px;
     white-space: pre-wrap;
     display: -webkit-box;

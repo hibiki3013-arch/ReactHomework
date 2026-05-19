@@ -1,10 +1,11 @@
-import './Header.css';
+import './Header.module.css';
+import styles from './Header.module.css';
 
 export default function Header() {
   return (
-    <header className="site-header">
-      <div className="header-link">ブログ</div>
-      <div className="header-link">お問い合わせ</div>
+    <header className={styles.SiteHeader}>
+      <div className={styles.HeaderLink}>ブログ</div>
+      <div className={styles.HeaderLink}>お問い合わせ</div>
     </header>
   );
 }
