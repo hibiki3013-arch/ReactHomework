@@ -1,37 +1,38 @@
-import './Home.css';
+
 import { posts } from '../../data/posts.js';
+import styles from './Home.module.css';
 
 
 
 export default function Home() {
     return(
-<div className="post-card-main">
+<div className={styles.PostCardMain}>
     {posts.map((post) => {
       const [year, month, day] = post.createdAt.split('T')[0].split('-');
       const formattedDate = `${year}年${month}月${day}日`;
-      const [first, second] = post.categories;
        return (
-      <div key={post.id} className="post-card">
+      <div key={post.id} className={styles.PostCard}>
 
-      <div className="post-card-between"> 
-        <div className="post-card-data">{formattedDate}</div>
+      <div className={styles.PostCardBetween}> 
+        <div className={styles.PostCardData}>{formattedDate}</div>
 
-        <div className="post-card-category">
-        <span className="category-detail">{first}</span>  
-        {second && <span className="category-detail">{second}</span>}
-        </div>
+        <div className={styles.PostCardCategory}>
+        {post.categories.map((category, index) => {
+          return(
+            <span key={index} className={styles.CategoryDetail}>{category}</span>
+          )
+        }
+      )}
+      </div>
       </div>
 
-      <div className="post-card-title">
+      <div className={styles.PostCardTitle}>
         APIで取得した{post.title}
       </div>
-      <div className="post-card-article">
-        {post.content.replaceAll('<br/>', '\n')}
-      </div>
-              
-    </div>
+
+      <div className={styles.PostCardArticle} dangerouslySetInnerHTML={{ __html: post.content }} /></div>
             );
           })}
     </div>  
-    );
-    }
+);
+}
