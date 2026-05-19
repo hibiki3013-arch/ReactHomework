@@ -1,18 +1,21 @@
-
 import { posts } from '../../data/posts.js';
-import styles from './Home.module.css';
+import styles from './Blog.module.css';
+import { Link } from 'react-router-dom';
 
 
 
-export default function Home() {
+export default function Blog() {
     return(
 <div className={styles.PostCardMain}>
     {posts.map((post) => {
       const [year, month, day] = post.createdAt.split('T')[0].split('-');
       const formattedDate = `${year}年${month}月${day}日`;
        return (
-      <div key={post.id} className={styles.PostCard}>
 
+
+      <Link to={`/article/${post.id}`}  key={post.id} className={styles.PostCard}>
+
+        
       <div className={styles.PostCardBetween}> 
         <div className={styles.PostCardData}>{formattedDate}</div>
 
@@ -30,9 +33,10 @@ export default function Home() {
         APIで取得した{post.title}
       </div>
 
-      <div className={styles.PostCardArticle} dangerouslySetInnerHTML={{ __html: post.content }} /></div>
+      <div className={styles.PostCardArticle} dangerouslySetInnerHTML={{ __html: post.content }} />
+      </Link>
             );
           })}
-    </div>  
+</div>  
 );
 }
