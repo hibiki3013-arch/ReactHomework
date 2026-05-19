@@ -7,8 +7,15 @@ export default function Article() {
 
   const {id} = useParams();
   const post = posts.find((post) => post.id === Number(id));
+
+  if (!post) {
+        return (<div>記事が見つかりませんでした。</div>);
+      }
+
   const [year, month, day] = post.createdAt.split('T')[0].split('-');
   const formattedDate = `${year}/${month}/${day}/`;
+
+
 
    return(
     <div>
