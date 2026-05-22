@@ -1,10 +1,33 @@
-import { posts } from '../../data/posts.js';
+import { useState, useEffect } from 'react';
 import styles from './Blog.module.css';
 import { Link } from 'react-router-dom';
 
 
 
 export default function Blog() {
+    const [posts, setPosts] = useState([])
+    const [loading, setLoading] = useState(true)
+
+    useEffect(() => {
+    const fetcher = async () => {
+      try{
+      const res = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/posts")
+      const data = await res.json();
+      setPosts(data.posts);
+    }catch (error) {
+      console.error("データの取得に失敗しました:", error);
+    }finally {
+      setLoading(false);
+    };
+  };
+
+    fetcher()
+  }, [])
+
+  if (loading) {
+    return <div>読み込み中...</div>;
+  }
+
     return(
 <div className={styles.PostCardMain}>
     {posts.map((post) => {
