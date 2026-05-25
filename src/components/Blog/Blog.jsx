@@ -28,6 +28,10 @@ export default function Blog() {
     return <div>読み込み中...</div>;
   }
 
+    if (posts.length === 0) {
+    return <div>記事がありません。</div>;
+  }
+
     return(
 <div className={styles.PostCardMain}>
     {posts.map((post) => {
