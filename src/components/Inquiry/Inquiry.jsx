@@ -4,7 +4,6 @@ import styles from './Inquiry.module.css';
 export default function Inquiry() {
   const [formDate,setFormData] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
-
   const validate = () => {
     let newErrors = {};
 
