@@ -1,17 +1,27 @@
 import { useState } from 'react'
 import { posts } from './data/posts.js';
 import Header from './components/Header/index.jsx';
-import Home from './components/Home/index.jsx';
-import './components/Home/Home.module.css';
-import './components/Header/Header.module.css';
+import Blog from './components/Blog/Blog.jsx';
+import Inquiry from './components/Inquiry/inquiry.jsx';
+import Article from './components/Article/Article.jsx'; 
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
+
+
+
 
 function App() {
   return(
-    <>
-    <Header />
-    <Home />
+    <BrowserRouter>
 
-    </>
+    <Header />   
+
+    <Routes>
+    <Route path="/" element={<Blog />} />
+    <Route path="/inquiry" element={<Inquiry />} />
+    <Route path="/article/:id" element={<Article />} />
+    </Routes>
+
+    </BrowserRouter>
   );
   };
 

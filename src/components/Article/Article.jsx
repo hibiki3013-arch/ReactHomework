@@ -1,16 +1,26 @@
-
 import { posts } from '../../data/posts.js';
-import styles from './Home.module.css';
+import styles from './Article.module.css';
+import {useParams} from 'react-router-dom';
+
+
+export default function Article() {
+
+  const {id} = useParams();
+  const post = posts.find((post) => post.id === Number(id));
+
+  if (!post) {
+        return (<div>記事が見つかりませんでした。</div>);
+      }
+
+  const [year, month, day] = post.createdAt.split('T')[0].split('-');
+  const formattedDate = `${year}/${month}/${day}/`;
 
 
 
-export default function Home() {
-    return(
-<div className={styles.PostCardMain}>
-    {posts.map((post) => {
-      const [year, month, day] = post.createdAt.split('T')[0].split('-');
-      const formattedDate = `${year}年${month}月${day}日`;
-       return (
+   return(
+    <div>
+    <img src="https://placehold.jp/800x400.png" alt="記事の画像" className={styles.Img}/>
+
       <div key={post.id} className={styles.PostCard}>
 
       <div className={styles.PostCardBetween}> 
@@ -31,8 +41,7 @@ export default function Home() {
       </div>
 
       <div className={styles.PostCardArticle} dangerouslySetInnerHTML={{ __html: post.content }} /></div>
-            );
-          })}
+      
     </div>  
 );
 }
