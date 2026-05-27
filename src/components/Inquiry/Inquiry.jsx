@@ -1,7 +1,102 @@
+import {useState} from 'react';
+import styles from './Inquiry.module.css';
+
 export default function Inquiry() {
+  const [formDate,setFormData] = useState({ name: '', email: '', message: '' });
+  const [errors, setErrors] = useState({});
+
+  const validate = () => {
+    let newErrors = {};
+
+    if(!formDate.name) newErrors.name = 'お名前を入力してください';
+    else if(formDate.name.length > 30) newErrors.name = 'お名前は30文字以内で入力してください';
+
+    if(!formDate.email) newErrors.email = 'メールアドレスを入力してください';
+    else if(!/\S+@\S+\.\S+/.test(formDate.email)) newErrors.email = '有効なメールアドレスを入力してください';
+
+    if(!formDate.message) newErrors.message = '本文を入力してください';
+    else if(formDate.message.length > 500) newErrors.message = '本文は500文字以内で入力してください';
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; 
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if(validate()){
+      try {
+        const response = await fetch("https://1hmfpsvto6.execute-api.ap-northeast-1.amazonaws.com/dev/contacts", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(formDate)
+      });
+
+      if(response.ok){
+      alert("送信しました");
+
+      setFormData({ name:'', email:'', message:'' });
+      setErrors({});
+    }else{      
+      alert("送信に失敗しました");
+    }
+  }catch (error) {
+    console.error("Error:", error);
+    alert("送信に失敗しました");
+  }
+}
+};
+
   return (
-    <div>
-      <h1>Inquiry</h1>
-    </div>
+    <form className={styles.formInquiry} onSubmit={handleSubmit}>
+      <div className={styles.form}>問合わせフォーム</div>
+
+      <div className={styles.formLabel}>
+        <label>お名前</label>
+        <div className={styles.inputArea}>
+        <input type="text"
+        value={formDate.name}
+        onChange={(e) => setFormData({...formDate, name: e.target.value})}
+        />
+        {errors.name && <span className={styles.newErrors}>{errors.name}</span>}
+        </div>
+      </div>
+
+      <div className={styles.formLabel}>
+        <label>メールアドレス</label>
+        <div className={styles.inputArea}>
+        <input type="email" 
+        value={formDate.email}
+        onChange={(e) => setFormData({...formDate, email: e.target.value})}
+        />
+        {errors.email && <span className={styles.newErrors}>{errors.email}</span>}
+        </div>
+      </div>
+        
+        
+      <div className={styles.formLabel}>
+        <label>本文</label>
+        <div className={styles.inputArea}>
+        <textarea rows="4"
+        value={formDate.message}
+        onChange={(e) => setFormData({...formDate, message: e.target.value})}
+        />
+        
+        {errors.message && <span className={styles.newErrors}>{errors.message}</span>}
+        </div>
+      </div>
+
+      <div className={styles.formButton}>
+       <button type="submit" className={styles.formSend}>送信</button>
+       <button type="reset" className={styles.formClear}
+       onClick={() => {
+        setFormData({ name:'', email:'', message:'' });
+        setErrors({});
+       }}
+       >クリア
+       </button>
+      </div>
+    </form>
   );
 }
