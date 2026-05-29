@@ -1,9 +1,10 @@
-import {useState} from 'react';
+import { useState } from 'react';
 import styles from './Inquiry.module.css';
 
 export default function Inquiry() {
   const [formDate,setFormData] = useState({ name: '', email: '', message: '' });
   const [errors, setErrors] = useState({});
+  const [isSubmitting,setIsSubmitting] = useState(false);
   const validate = () => {
     let newErrors = {};
 
@@ -39,7 +40,9 @@ export default function Inquiry() {
       setErrors({});
     }else{      
       alert("送信に失敗しました");
+      return;
     }
+    
   }catch (error) {
     console.error("Error:", error);
     alert("送信に失敗しました");
@@ -55,6 +58,7 @@ export default function Inquiry() {
         <label>お名前</label>
         <div className={styles.inputArea}>
         <input type="text"
+        disabled={isSubmitting}
         value={formDate.name}
         onChange={(e) => setFormData({...formDate, name: e.target.value})}
         />
@@ -66,6 +70,7 @@ export default function Inquiry() {
         <label>メールアドレス</label>
         <div className={styles.inputArea}>
         <input type="email" 
+        disabled={isSubmitting}
         value={formDate.email}
         onChange={(e) => setFormData({...formDate, email: e.target.value})}
         />
@@ -78,6 +83,7 @@ export default function Inquiry() {
         <label>本文</label>
         <div className={styles.inputArea}>
         <textarea rows="4"
+        disabled={isSubmitting}
         value={formDate.message}
         onChange={(e) => setFormData({...formDate, message: e.target.value})}
         />
@@ -87,8 +93,14 @@ export default function Inquiry() {
       </div>
 
       <div className={styles.formButton}>
-       <button type="submit" className={styles.formSend}>送信</button>
-       <button type="reset" className={styles.formClear}
+       <button 
+       type="submit" 
+       disabled={isSubmitting}
+       className={styles.formSend}>{isSubmitting ? "送信中..." : "送信"}
+       </button>
+       <button type="reset" 
+       disabled={isSubmitting}
+       className={styles.formClear}
        onClick={() => {
         setFormData({ name:'', email:'', message:'' });
         setErrors({});
