@@ -2,7 +2,6 @@ import {useState, useEffect} from 'react';
 import styles from './Article.module.css';
 import {useParams} from 'react-router-dom';
 
-
 export default function Article() {
 
   const {id} = useParams();

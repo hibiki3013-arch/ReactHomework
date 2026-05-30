@@ -1,3 +1,5 @@
+import { useState } from 'react';
+import { posts } from './data/posts.js';
 import Header from './components/Header/index.jsx';
 import Blog from './components/Blog/Blog.jsx';
 import Inquiry from './components/Inquiry/Inquiry.jsx';
